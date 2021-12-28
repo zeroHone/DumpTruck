@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import com.example.dumptruck.MainActivity
 import com.example.dumptruck.R
 import com.google.android.material.textfield.TextInputEditText
 
@@ -29,9 +30,7 @@ class LoginFragment : Fragment() {
              val user =view.findViewById<TextInputEditText>(R.id.txtUser).text.toString()
             val password = view.findViewById<TextInputEditText>(R.id.txtPass).text.toString()
             if(loginAttempt(user, password)){
-                activity?.supportFragmentManager?.beginTransaction().apply {
-
-                }
+                (activity as MainActivity).NavigateTo(SettingsFragment(),false)
             }
         }
     return view
