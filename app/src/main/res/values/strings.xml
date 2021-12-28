@@ -6,6 +6,7 @@
     <string name="menu_liveData">مشاهده داده</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Settings fragment</string>
+    <string name="login_button">ورود</string>
 
 
 </resources>
