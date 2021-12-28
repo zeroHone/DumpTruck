@@ -4,6 +4,8 @@
     <string name="close">close</string>
     <string name="menu_setting">تنظیمات</string>
     <string name="menu_liveData">مشاهده داده</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Settings fragment</string>
 
 
 </resources>

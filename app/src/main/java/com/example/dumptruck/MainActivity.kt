@@ -6,9 +6,10 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
+import fragments.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
-
+val settingFragment = SettingsFragment()
 
     lateinit var toggle : ActionBarDrawerToggle
     var myDummy : Int =0
@@ -25,7 +26,13 @@ class MainActivity : AppCompatActivity() {
         findViewById<NavigationView>(R.id.navDrawer).setNavigationItemSelectedListener{
 
             when(it.itemId){
-                R.id.menuItemLiveData ->myDummy=1
+                R.id.menuItemSetting ->{
+
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.mainFrame, settingFragment)
+                        commit()
+                    }
+                }//Setting
                 R.id.menuItemLiveData -> myDummy=2
 
 
