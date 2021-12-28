@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="@string/menu_setting"
+        android:id="@+id/menuItemSetting"
+        android:icon="@drawable/ic_scooter_24"
+        />
+
+    <item
+        android:title="@string/menu_liveData"
+        android:id="@+id/menuItemLiveData"
+        android:icon="@drawable/ic_settings_24"
+        />
+
+
+</menu>
