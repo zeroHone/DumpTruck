@@ -6,20 +6,22 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
+import android.util.Log
 import data.SettingsData
+import java.lang.StringBuilder
 
 class DataBaseHandler(context: Context ) : SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION) {
 
 
     companion object{
-        val DATABASE_NAME = "maindatabase"
+        val DATABASE_NAME = "maindatabase.db"
         val DATABASE_VERSION =1
         val DATABASE_TABLE="maintable"
 
     }
 
 
-    object DataColumns : BaseColumns{
+object DataColumns : BaseColumns{
 
 
         val COLUMN_IP = "ipaddress"
@@ -32,33 +34,36 @@ class DataBaseHandler(context: Context ) : SQLiteOpenHelper(context,DATABASE_NAM
 
     }
 
-    override fun onCreate(p0: SQLiteDatabase?) {
+override fun onCreate(p0: SQLiteDatabase?) {
         val CREATE_TABLE_QUERY = "CREATE TABLE $DATABASE_TABLE ("+
             "${BaseColumns._ID} INTEGER PRIMARY KEY,"+
             "${DataColumns.COLUMN_IP} TEXT,"+
             "${DataColumns.COLUMN_PORT} TEXT,"+
                 "${DataColumns.COLUMN_TRUCK} TEXT,"+
                 "${DataColumns.COLUMN_USERNAME} TEXT,"+
-                "${DataColumns.COLUMN_PASSWORD} TEXT,"
+                "${DataColumns.COLUMN_PASSWORD} TEXT,"+
         "${DataColumns.COLUMN_ROW} TEXT)"
-try {
+
     p0!!.execSQL(CREATE_TABLE_QUERY)
-    insertSettings()
+    val currentSettings = ContentValues()
+    currentSettings.put(DataColumns.COLUMN_IP, SettingsData.IP)
+    currentSettings.put(DataColumns.COLUMN_PORT, SettingsData.PORT)
+    currentSettings.put(DataColumns.COLUMN_USERNAME, SettingsData.USERNAME)
+    currentSettings.put(DataColumns.COLUMN_PASSWORD, SettingsData.PASSWORD)
+    currentSettings.put(DataColumns.COLUMN_TRUCK, SettingsData.TRUCK)
+    currentSettings.put(DataColumns.COLUMN_ROW, SettingsData.ROW)
 
-
-}catch ( exp : SQLiteException){
-
-}
+    val success = p0!!.insert(DATABASE_TABLE,null,currentSettings)
 
 
     }
 
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
+override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
         TODO("Not yet implemented")
     }
 
 fun checkCompleteSettings():Boolean{
-
+val str = StringBuilder()
 
     val db = readableDatabase
 
@@ -84,6 +89,7 @@ fun checkCompleteSettings():Boolean{
         null,                   // don't filter by row groups
         null               // The sort order
     )
+
 if(cursor.moveToFirst()){do {
 
     SettingsData.IP = cursor.getString(cursor.getColumnIndex(DataColumns.COLUMN_IP) as Int)
@@ -93,14 +99,17 @@ if(cursor.moveToFirst()){do {
     SettingsData.TRUCK = cursor.getString(cursor.getColumnIndex(DataColumns.COLUMN_TRUCK) as Int)
     SettingsData.ROW = cursor.getString(cursor.getColumnIndex(DataColumns.COLUMN_ROW) as Int)
 
+    str.append("***IP = ${SettingsData.IP}\n")
+    str.append("**ROW = ${SettingsData.PORT}\n")
+    Log.i("settingHHF",str.toString())
 
     }while (cursor.moveToNext())
 }
 db.close()
-    return SettingsData.ROW == "1"
+    return true
 }
 
- fun insertSettings() : Long{
+fun insertSettings() : Long{
     val db = writableDatabase
 val currentSettings = ContentValues()
     currentSettings.put(DataColumns.COLUMN_IP, SettingsData.IP)
@@ -115,10 +124,12 @@ val currentSettings = ContentValues()
 db.close()
 return success
 }
-    fun refreshSettings() : Int{
+fun refreshSettings() : Int{
+
+
         val db = writableDatabase
 
-
+Log.i("settingHHF","refresh")
 
         val values = ContentValues().apply {
             put(DataColumns.COLUMN_IP, SettingsData.IP)
@@ -133,11 +144,13 @@ return success
         val selection = "${DataColumns.COLUMN_ROW} LIKE ?"
         val selectionArgs = arrayOf(SettingsData.ROW)
         val count = db.update(
-            DATABASE_NAME,
+            DATABASE_TABLE,
             values,
             selection,
             selectionArgs)
         db.close()
+
+        Log.i("settingHHF","count ==  ${count.toString()}")
 return count
     }
 

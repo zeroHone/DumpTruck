@@ -26,18 +26,10 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_login, container, false)
 
-        view.findViewById<Button>(R.id.btnLogin).setOnClickListener {
-             val user =view.findViewById<TextInputEditText>(R.id.txtUser).text.toString()
-            val password = view.findViewById<TextInputEditText>(R.id.txtPass).text.toString()
-            if(loginAttempt(user, password)){
-                (activity as MainActivity).NavigateTo(SettingsFragment(),false)
-            }
-        }
+
     return view
     }
 
-    fun loginAttempt(user : String , pass: String):Boolean{
-        return pass.length == 8
-    }
+
 
 }
