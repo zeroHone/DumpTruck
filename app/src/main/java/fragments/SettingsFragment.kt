@@ -51,6 +51,7 @@ lateinit var appdb : DataBaseHandler
 
 
            (activity as MainActivity).saveToDB(ipaddress,portaddress, useraddress, passaddress)
+            Toast.makeText(activity,getString(R.string.data_saved),Toast.LENGTH_LONG).show()
 
             true
         }

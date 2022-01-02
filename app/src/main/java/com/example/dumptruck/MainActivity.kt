@@ -7,8 +7,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.transition.Slide
 import com.google.android.material.navigation.NavigationView
 import data.SettingsData
 import database.DataBaseHandler
@@ -44,9 +46,12 @@ val settingFragment = SettingsFragment()
                     supportFragmentManager.beginTransaction().apply {
                         replace(R.id.mainFrame, settingFragment)
                         commit()
+                        findViewById<DrawerLayout>(R.id.baseDrawer).closeDrawer(GravityCompat.START)
                     }
                 }//Setting
-                R.id.menuItemLiveData -> myDummy=2
+                R.id.menuItemLiveData -> {
+
+                }
 
 
             }

@@ -7,11 +7,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Settings fragment</string>
     <string name="login_button">ورود</string>
-<string name="login_error_message">نام کاربری یا رمز عبور اشتباه است!</string>
+    <string name="login_error_message">نام کاربری یا رمز عبور اشتباه است!</string>
 
     <string name="ip_label">IP:</string>
     <string name="port_label">Port:</string>
     <string name="user_label">Username:</string>
     <string name="password_label">Password:</string>
+    <string name="data_saved">اطلاعات با موفقیت ذخیره شد.</string>
+    <string name="description">توضیحات:</string>
 
 </resources>
