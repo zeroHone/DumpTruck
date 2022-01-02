@@ -9,12 +9,8 @@ import com.ekndev.gaugelibrary.HalfGauge
 import com.example.dumptruck.R
 import data.DataBase
 
-class VMODEL(myarray : ArrayList<DataBase>) : RecyclerView.Adapter<VMODEL.VHOLER>() {
+class ViewAdapter(myarray : ArrayList<DataBase>) : RecyclerView.Adapter<ViewAdapter.VHOLER>() {
     val dataArray = myarray
-
-
-
-
     inner class VHOLER(itemview : View) : RecyclerView.ViewHolder(itemview){
         fun bind(dataBase : DataBase){
             itemView.findViewById<HalfGauge>(R.id.halfGauge).value = dataBase.value.toDouble()
