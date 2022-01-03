@@ -12,6 +12,11 @@
         android:id="@+id/menuItemLiveData"
         android:icon="@drawable/ic_settings_24"
         />
+    <item
+        android:title="انتخاب ماشین"
+        android:id="@+id/menuItemSelection"
+        android:icon="@drawable/ic_two_wheeler_24"
+        />
 
 
 </menu>

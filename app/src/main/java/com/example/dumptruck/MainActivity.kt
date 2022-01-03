@@ -4,6 +4,7 @@ import NavigateHost
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils.replace
 import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -14,6 +15,7 @@ import androidx.transition.Slide
 import com.google.android.material.navigation.NavigationView
 import data.SettingsData
 import database.DataBaseHandler
+import fragments.CarSelectFragment
 import fragments.LoginFragment
 import fragments.MonitorFragment
 import fragments.SettingsFragment
@@ -21,7 +23,9 @@ import fragments.SettingsFragment
 class MainActivity : AppCompatActivity(),NavigateHost {
 val settingFragment = SettingsFragment()
     val monitorFragment = MonitorFragment()
+    val carSelectFragment = CarSelectFragment()
     val loginFragment = LoginFragment()
+
     lateinit var appdb : DataBaseHandler
     lateinit var toggle : ActionBarDrawerToggle
     var myDummy : Int =0
@@ -42,8 +46,8 @@ val settingFragment = SettingsFragment()
 
         findViewById<NavigationView>(R.id.navDrawer).setNavigationItemSelectedListener{
 
-            when(it.itemId){
-                R.id.menuItemSetting ->{
+            when(it.itemId) {
+                R.id.menuItemSetting -> {
 
                     supportFragmentManager.beginTransaction().apply {
                         replace(R.id.mainFrame, settingFragment)
@@ -58,8 +62,13 @@ val settingFragment = SettingsFragment()
                         findViewById<DrawerLayout>(R.id.baseDrawer).closeDrawer(GravityCompat.START)
                     }
                 }
-
-
+                R.id.menuItemSelection -> {
+                supportFragmentManager.beginTransaction().apply {
+                    replace(R.id.mainFrame, carSelectFragment)
+                    commit()
+                    findViewById<DrawerLayout>(R.id.baseDrawer).closeDrawer(GravityCompat.START)
+                }
+            }
             }
             true
         }

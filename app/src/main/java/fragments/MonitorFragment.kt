@@ -15,12 +15,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dumptruck.R
 import data.DataBase
 import data.ModelViewContent
+import java.lang.Exception
 
 
 class MonitorFragment : Fragment() {
 
     lateinit var monitor : ModelViewContent
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
+        try {
+            activity?.title="انتخاب"
+        }catch (ex : Exception){
+
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +41,8 @@ class MonitorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         monitor = ViewModelProvider(this).get(ModelViewContent::class.java)
         val layoumanager = LinearLayoutManager(activity)
         monitor.runCommand = true
@@ -52,4 +63,7 @@ class MonitorFragment : Fragment() {
         super.onDestroyView()
         monitor.runCommand = false
     }
+
+
+
 }
