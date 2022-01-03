@@ -14,7 +14,7 @@ import com.example.dumptruck.R
 import data.DataBase
 
 class ViewAdapter(myarray : ArrayList<DataBase>) : RecyclerView.Adapter<ViewAdapter.VHOLER>() {
-    val dataArray = myarray
+    var dataArray = myarray
 
 
 
@@ -71,5 +71,10 @@ class ViewAdapter(myarray : ArrayList<DataBase>) : RecyclerView.Adapter<ViewAdap
     override fun getItemCount(): Int {
 
         return dataArray.size
+    }
+
+    fun newDataAccept(arrayOfDat : ArrayList<DataBase>){
+        dataArray = arrayOfDat
+        notifyDataSetChanged()
     }
 }

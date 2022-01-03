@@ -36,13 +36,14 @@ class MonitorFragment : Fragment() {
         val layoumanager = LinearLayoutManager(activity)
         monitor.runCommand = true
         monitor.refreshData()
+        val tempArray = arrayListOf<DataBase>()
+        val viewAdapter = ViewAdapter(tempArray)
+        view.findViewById<RecyclerView>(R.id.recyclerview).layoutManager = layoumanager
 
+        view.findViewById<RecyclerView>(R.id.recyclerview).adapter = viewAdapter
         monitor.getLiveDataValue().observe(viewLifecycleOwner, Observer {
+        viewAdapter.newDataAccept(it)
 
-            val viewAdapter = ViewAdapter(it)
-            view.findViewById<RecyclerView>(R.id.recyclerview).layoutManager = layoumanager
-
-            view.findViewById<RecyclerView>(R.id.recyclerview).adapter = viewAdapter
 
         })
     }

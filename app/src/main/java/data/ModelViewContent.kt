@@ -28,17 +28,9 @@ class ModelViewContent : ViewModel {
     fun refreshData(){
     CoroutineScope(Default).launch {
         while (runCommand) {
-
             val tempArray = dbHandle.fetchData()
-if(tempArray != arraydataviewmodel){
-    arraydataviewmodel = tempArray
-    livedataarray.postValue(tempArray)
-
-}
-
-
-
-     delay(1500L)
+            livedataarray.postValue(tempArray)
+            delay(1000L)
         }
     }
     }
