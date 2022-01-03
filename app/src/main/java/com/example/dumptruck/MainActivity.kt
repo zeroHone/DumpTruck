@@ -15,10 +15,12 @@ import com.google.android.material.navigation.NavigationView
 import data.SettingsData
 import database.DataBaseHandler
 import fragments.LoginFragment
+import fragments.MonitorFragment
 import fragments.SettingsFragment
 
 class MainActivity : AppCompatActivity(),NavigateHost {
 val settingFragment = SettingsFragment()
+    val monitorFragment = MonitorFragment()
     val loginFragment = LoginFragment()
     lateinit var appdb : DataBaseHandler
     lateinit var toggle : ActionBarDrawerToggle
@@ -50,7 +52,11 @@ val settingFragment = SettingsFragment()
                     }
                 }//Setting
                 R.id.menuItemLiveData -> {
-
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.mainFrame, monitorFragment)
+                        commit()
+                        findViewById<DrawerLayout>(R.id.baseDrawer).closeDrawer(GravityCompat.START)
+                    }
                 }
 
 

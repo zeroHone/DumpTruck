@@ -6,10 +6,11 @@
     android:layout_marginTop="30dp"
     android:orientation="vertical">
 
-    <com.ekndev.gaugelibrary.HalfGauge
+    <com.ekndev.gaugelibrary.ArcGauge
         android:id="@+id/halfGauge"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:background="#F4EFEF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +31,8 @@
         android:layout_height="wrap_content"
         android:background="#FFC107"
         android:text="TextView"
-        android:textDirection="rtl"
+        android:textAlignment="viewEnd"
+
         android:textSize="24sp" />
 
 </LinearLayout>
