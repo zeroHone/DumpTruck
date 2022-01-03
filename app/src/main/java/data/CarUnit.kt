@@ -1,3 +1,3 @@
 package data
 
-data class CarUnit()
+data class CarUnit(val name : String, val description : String)
