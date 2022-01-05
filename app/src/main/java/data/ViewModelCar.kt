@@ -10,9 +10,9 @@ import kotlinx.coroutines.launch
 
 class ViewModelCar : ViewModel() {
 
-    var arraydataviewmodel = ArrayList<CarUnit>()
+    var arraydataviewmodel = ArrayList<DataBase>()
 
-    var livedataarray = MutableLiveData<ArrayList<CarUnit>>()
+    var livedataarray = MutableLiveData<ArrayList<DataBase>>()
 
     val dbHandle = ExternalDataBase("test_db")
 
