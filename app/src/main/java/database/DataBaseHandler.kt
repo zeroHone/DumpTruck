@@ -3,11 +3,10 @@ package database
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteException
 import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
 import android.util.Log
-import data.SettingsData
+import data.DataStorage
 import java.lang.StringBuilder
 
 class DataBaseHandler(context: Context ) : SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION) {
@@ -46,12 +45,12 @@ override fun onCreate(p0: SQLiteDatabase?) {
 
     p0!!.execSQL(CREATE_TABLE_QUERY)
     val currentSettings = ContentValues()
-    currentSettings.put(DataColumns.COLUMN_IP, SettingsData.IP)
-    currentSettings.put(DataColumns.COLUMN_PORT, SettingsData.PORT)
-    currentSettings.put(DataColumns.COLUMN_USERNAME, SettingsData.USERNAME)
-    currentSettings.put(DataColumns.COLUMN_PASSWORD, SettingsData.PASSWORD)
-    currentSettings.put(DataColumns.COLUMN_TRUCK, SettingsData.TRUCK)
-    currentSettings.put(DataColumns.COLUMN_ROW, SettingsData.ROW)
+    currentSettings.put(DataColumns.COLUMN_IP, DataStorage.IP)
+    currentSettings.put(DataColumns.COLUMN_PORT, DataStorage.PORT)
+    currentSettings.put(DataColumns.COLUMN_USERNAME, DataStorage.USERNAME)
+    currentSettings.put(DataColumns.COLUMN_PASSWORD, DataStorage.PASSWORD)
+    currentSettings.put(DataColumns.COLUMN_TRUCK, DataStorage.TRUCK)
+    currentSettings.put(DataColumns.COLUMN_ROW, DataStorage.ROW)
 
     val success = p0!!.insert(DATABASE_TABLE,null,currentSettings)
 
@@ -92,15 +91,15 @@ val str = StringBuilder()
 
 if(cursor.moveToFirst()){do {
 
-    SettingsData.IP = cursor.getString(cursor.getColumnIndex(DataColumns.COLUMN_IP) as Int)
-    SettingsData.PORT = cursor.getString(cursor.getColumnIndex(DataColumns.COLUMN_PORT) as Int)
-    SettingsData.USERNAME = cursor.getString(cursor.getColumnIndex(DataColumns.COLUMN_USERNAME) as Int)
-    SettingsData.PASSWORD = cursor.getString(cursor.getColumnIndex(DataColumns.COLUMN_PASSWORD) as Int)
-    SettingsData.TRUCK = cursor.getString(cursor.getColumnIndex(DataColumns.COLUMN_TRUCK) as Int)
-    SettingsData.ROW = cursor.getString(cursor.getColumnIndex(DataColumns.COLUMN_ROW) as Int)
+    DataStorage.IP = cursor.getString(cursor.getColumnIndex(DataColumns.COLUMN_IP) as Int)
+    DataStorage.PORT = cursor.getString(cursor.getColumnIndex(DataColumns.COLUMN_PORT) as Int)
+    DataStorage.USERNAME = cursor.getString(cursor.getColumnIndex(DataColumns.COLUMN_USERNAME) as Int)
+    DataStorage.PASSWORD = cursor.getString(cursor.getColumnIndex(DataColumns.COLUMN_PASSWORD) as Int)
+    DataStorage.TRUCK = cursor.getString(cursor.getColumnIndex(DataColumns.COLUMN_TRUCK) as Int)
+    DataStorage.ROW = cursor.getString(cursor.getColumnIndex(DataColumns.COLUMN_ROW) as Int)
 
-    str.append("***IP = ${SettingsData.IP}\n")
-    str.append("**ROW = ${SettingsData.PORT}\n")
+    str.append("***IP = ${DataStorage.IP}\n")
+    str.append("**ROW = ${DataStorage.PORT}\n")
     Log.i("settingHHF",str.toString())
 
     }while (cursor.moveToNext())
@@ -112,12 +111,12 @@ db.close()
 fun insertSettings() : Long{
     val db = writableDatabase
 val currentSettings = ContentValues()
-    currentSettings.put(DataColumns.COLUMN_IP, SettingsData.IP)
-    currentSettings.put(DataColumns.COLUMN_PORT, SettingsData.PORT)
-    currentSettings.put(DataColumns.COLUMN_USERNAME, SettingsData.USERNAME)
-    currentSettings.put(DataColumns.COLUMN_PASSWORD, SettingsData.PASSWORD)
-    currentSettings.put(DataColumns.COLUMN_TRUCK, SettingsData.TRUCK)
-    currentSettings.put(DataColumns.COLUMN_ROW, SettingsData.ROW)
+    currentSettings.put(DataColumns.COLUMN_IP, DataStorage.IP)
+    currentSettings.put(DataColumns.COLUMN_PORT, DataStorage.PORT)
+    currentSettings.put(DataColumns.COLUMN_USERNAME, DataStorage.USERNAME)
+    currentSettings.put(DataColumns.COLUMN_PASSWORD, DataStorage.PASSWORD)
+    currentSettings.put(DataColumns.COLUMN_TRUCK, DataStorage.TRUCK)
+    currentSettings.put(DataColumns.COLUMN_ROW, DataStorage.ROW)
 
     val success = db.insert(DATABASE_TABLE,null,currentSettings)
 
@@ -132,17 +131,17 @@ fun refreshSettings() : Int{
 Log.i("settingHHF","refresh")
 
         val values = ContentValues().apply {
-            put(DataColumns.COLUMN_IP, SettingsData.IP)
-            put(DataColumns.COLUMN_PORT, SettingsData.PORT)
-            put(DataColumns.COLUMN_USERNAME, SettingsData.USERNAME)
-            put(DataColumns.COLUMN_PASSWORD, SettingsData.PASSWORD)
-            put(DataColumns.COLUMN_TRUCK, SettingsData.TRUCK)
-            put(DataColumns.COLUMN_ROW, SettingsData.ROW)
+            put(DataColumns.COLUMN_IP, DataStorage.IP)
+            put(DataColumns.COLUMN_PORT, DataStorage.PORT)
+            put(DataColumns.COLUMN_USERNAME, DataStorage.USERNAME)
+            put(DataColumns.COLUMN_PASSWORD, DataStorage.PASSWORD)
+            put(DataColumns.COLUMN_TRUCK, DataStorage.TRUCK)
+            put(DataColumns.COLUMN_ROW, DataStorage.ROW)
         }
 
 
         val selection = "${DataColumns.COLUMN_ROW} LIKE ?"
-        val selectionArgs = arrayOf(SettingsData.ROW)
+        val selectionArgs = arrayOf(DataStorage.ROW)
         val count = db.update(
             DATABASE_TABLE,
             values,

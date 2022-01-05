@@ -1,21 +1,29 @@
 package data
 
+
 import android.util.Log
 import java.lang.Exception
+import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.Statement
 
-class ExternalDataBase(dataBaseName : String) {
-    val ipAddress = SettingsData.IP
-    val portAddress = SettingsData.PORT
-    val dbName = dataBaseName
-    val password = SettingsData.PASSWORD
-    val username = SettingsData.USERNAME
-    var dbstatus = "-"
+class ExternalDataBase() {
+
+    val ipAddress = DataStorage.IP
+    val portAddress = DataStorage.PORT
+    val dbName = "dataBaseName"
+    val password = DataStorage.PASSWORD
+    val username = DataStorage.USERNAME
+    var dbstatus = false
+    lateinit var connect : Connection
 
 
     lateinit var sqlStatement : Statement
-    fun connectToDB():Boolean{
+
+
+
+    fun connectToDB(){
+
 
         try {
             Class.forName("com.mysql.jdbc.Driver")
@@ -28,7 +36,7 @@ class ExternalDataBase(dataBaseName : String) {
                              "${password}")
 */
             // Setup the connection with the DB
-            val connect = DriverManager
+            connect = DriverManager
                 .getConnection(
                     "jdbc:mysql://172.17.180.100:3306/test_db",
                     "tamsidb_admin",
@@ -36,22 +44,26 @@ class ExternalDataBase(dataBaseName : String) {
 
 
             sqlStatement = connect.createStatement()
-            dbstatus ="OK"
+            dbstatus =true
 
-            return true
+
         }catch (exp : Exception){
-            dbstatus="ERROR"
+            dbstatus=false
+            Log.d("ABCDEFG","${exp.message}")
 
-            return false
+
         }
 
 
     }
-    fun fetchData():ArrayList<DataBase>{
-        val arrayOfResults = ArrayList<DataBase>()
+    fun fetchData(tbl : String):ArrayList<DataUnit>{
+        val tblName = tbl
 
-        if(connectToDB()){
-            val queryResult = sqlStatement.executeQuery("SELECT * FROM test_tbl")
+        val arrayOfResults = ArrayList<DataUnit>()
+
+        if(dbstatus){
+
+            val queryResult = sqlStatement.executeQuery("SELECT * FROM ${tblName}")
 
             while (queryResult.next()){
               //  val name = queryResult.getString("_name").toString()
@@ -62,7 +74,7 @@ class ExternalDataBase(dataBaseName : String) {
                 val name = tempName.toString(charset)
 
                 val value = queryResult.getFloat("_value")
-                val data = DataBase(value, name)
+                val data = DataUnit(value, name)
 
        arrayOfResults.add(data)
 

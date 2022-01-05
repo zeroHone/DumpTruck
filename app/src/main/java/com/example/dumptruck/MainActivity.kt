@@ -1,19 +1,17 @@
 package com.example.dumptruck
 
 import NavigateHost
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils.replace
 import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.transition.Slide
 import com.google.android.material.navigation.NavigationView
-import data.SettingsData
+import data.DataStorage
+import data.DataUnit
 import database.DataBaseHandler
 import fragments.CarSelectFragment
 import fragments.LoginFragment
@@ -103,12 +101,12 @@ val settingFragment = SettingsFragment()
 
         if(ip != null && port != null){
             if(regexIP.matches(ip as String)){
-                SettingsData.IP = ip
+                DataStorage.IP = ip
             }else{
                 strBuffer.append("IP is Invalid")
             }
             if(regexPort.matches(port as String)){
-                SettingsData.PORT = port
+                DataStorage.PORT = port
             }else{
                 strBuffer.append("& Port is Invalid = $port")
             }
@@ -118,12 +116,12 @@ val settingFragment = SettingsFragment()
 
         if(user != null && pass != null){
 
-                SettingsData.USERNAME = user as String
+                DataStorage.USERNAME = user as String
 
 
 
 
-                SettingsData.PASSWORD = pass as String
+                DataStorage.PASSWORD = pass as String
 
 
 
@@ -134,7 +132,7 @@ val settingFragment = SettingsFragment()
 
         if(!strBuffer.isEmpty()){
             //Toast.makeText(mycontext, strBuffer.toString(),Toast.LENGTH_LONG).show()
-            Log.i("settingHHF","${SettingsData.IP} and ${SettingsData.PORT} ${strBuffer.toString()}")
+            Log.i("settingHHF","${DataStorage.IP} and ${DataStorage.PORT} ${strBuffer.toString()}")
 
         }
 

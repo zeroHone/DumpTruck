@@ -1,25 +1,23 @@
 package fragments
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ekndev.gaugelibrary.ArcGauge
-import com.ekndev.gaugelibrary.HalfGauge
 import com.ekndev.gaugelibrary.Range
 import com.example.dumptruck.R
-import data.DataBase
+import data.DataUnit
 
-class ViewAdapter(myarray : ArrayList<DataBase>) : RecyclerView.Adapter<ViewAdapter.VHOLER>() {
+class ViewAdapter(myarray : ArrayList<DataUnit>) : RecyclerView.Adapter<ViewAdapter.VHOLER>() {
     var dataArray = myarray
 
 
 
     inner class VHOLER(itemview : View) : RecyclerView.ViewHolder(itemview){
-        fun bind(dataBase : DataBase){
+        fun bind(dataBase : DataUnit){
             var temp =""
             val range = Range()
             range.color = Color.parseColor("#ce0000")
@@ -73,7 +71,7 @@ class ViewAdapter(myarray : ArrayList<DataBase>) : RecyclerView.Adapter<ViewAdap
         return dataArray.size
     }
 
-    fun newDataAccept(arrayOfDat : ArrayList<DataBase>){
+    fun newDataAccept(arrayOfDat : ArrayList<DataUnit>){
         dataArray = arrayOfDat
         notifyDataSetChanged()
     }

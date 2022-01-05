@@ -1,6 +1,6 @@
 package data
 
-object SettingsData {
+object DataStorage {
 
     var IP : String = "-"
     var PORT : String = "-"

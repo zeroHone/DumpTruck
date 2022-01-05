@@ -1,26 +1,23 @@
 package fragments
 
 import android.os.Bundle
-import android.os.RecoverySystem
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dumptruck.R
-import data.DataBase
-import data.ModelViewContent
+import data.DataUnit
+import data.GlobalViewModel
 import java.lang.Exception
 
 
 class MonitorFragment : Fragment() {
 
-    lateinit var monitor : ModelViewContent
+    lateinit var monitor : GlobalViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,11 +40,12 @@ class MonitorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        monitor = ViewModelProvider(this).get(ModelViewContent::class.java)
+        monitor = ViewModelProvider(this).get(GlobalViewModel::class.java)
         val layoumanager = LinearLayoutManager(activity)
         monitor.runCommand = true
-        monitor.refreshData()
-        val tempArray = arrayListOf<DataBase>()
+        monitor.makeConnectionAndGetData()
+
+        val tempArray = arrayListOf<DataUnit>()
         val viewAdapter = ViewAdapter(tempArray)
         view.findViewById<RecyclerView>(R.id.recyclerview).layoutManager = layoumanager
 
